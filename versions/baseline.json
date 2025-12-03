@@ -14,7 +14,7 @@
     },
     "gettext-libintl": {
       "baseline": "0.22.5",
-      "port-version": 1
+      "port-version": 2
     },
     "launchdarkly": {
       "baseline": "3.8.1",
