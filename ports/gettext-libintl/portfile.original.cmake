@@ -89,12 +89,25 @@ if(VCPKG_TARGET_IS_WINDOWS)
     endif()
 endif()
 
+set(APPLE_CROSS_COMPILATION_OPTION "")
+if(VCPKG_TARGET_IS_OSX)
+    vcpkg_cmake_get_vars(cmake_vars_file)
+    include("${cmake_vars_file}")
+    message(STATUS "WE ARE COMPARING: ${VCPKG_TARGET_ARCHITECTURE} and ${VCPKG_DETECTED_CMAKE_HOST_SYSTEM_PROCESSOR}")
+    if (NOT ${VCPKG_TARGET_ARCHITECTURE} STREQUAL ${VCPKG_DETECTED_CMAKE_HOST_SYSTEM_PROCESSOR})
+        message(STATUS "JOEJOEJOE WE ARE CROSS COMPILING!")
+        z_vcpkg_determine_autotools_target_arch_mac(MACOS_ARCH)
+        set(APPLE_CROSS_COMPILATION_OPTION "--host=${MACOS_ARCH}-apple-darwin")
+    endif()
+endif()
+
 file(REMOVE "${CURRENT_BUILDTREES_DIR}/config.cache-${TARGET_TRIPLET}-rel.log")
 file(REMOVE "${CURRENT_BUILDTREES_DIR}/config.cache-${TARGET_TRIPLET}-dbg.log")
 vcpkg_configure_make(
     SOURCE_PATH "${SOURCE_PATH}/gettext-runtime/intl"
     OPTIONS
         ${OPTIONS}
+        ${APPLE_CROSS_COMPILATION_OPTION}
     OPTIONS_RELEASE
         "--cache-file=${CURRENT_BUILDTREES_DIR}/config.cache-${TARGET_TRIPLET}-rel.log"
     OPTIONS_DEBUG

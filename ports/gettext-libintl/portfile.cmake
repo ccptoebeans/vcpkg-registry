@@ -58,8 +58,6 @@ if(TARGET_TRIPLET MATCHES ".*universal-osx.*")
 
         string(REPLACE ${_ORIG_TARGET_TRIPLET} ${TARGET_TRIPLET} CURRENT_PACKAGES_DIR ${_ORIG_PACKAGES_DIR})
         unset_vars()
-        vcpkg_cmake_get_vars(cmake_vars_file)
-        include("${cmake_vars_file}")
         message(STATUS "JOEJOE THE BUILD ARCH IS ${VCPKG_DETECTED_CMAKE_HOST_SYSTEM_PROCESSOR}")
         message(STATUS "JOEJOE THE TARGET ARCH IS ${VCPKG_OSX_ARCHITECTURES}")
         include("${CMAKE_CURRENT_LIST_DIR}/portfile.original.cmake")
