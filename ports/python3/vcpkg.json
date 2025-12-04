@@ -4,6 +4,7 @@
   "description": "The Python programming language",
   "homepage": "https://github.com/python/cpython",
   "license": "Python-2.0",
+  "port-version": 1,
   "supports": "!uwp & !mingw",
   "dependencies": [
     {

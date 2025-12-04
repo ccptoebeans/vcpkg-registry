@@ -293,11 +293,27 @@ else()
         list(APPEND OPTIONS "--with-build-python=${_python_for_build}")
     endif()
 
+    set(APPLE_CROSS_COMPILATION_OPTION "")
+    if(VCPKG_TARGET_IS_OSX)
+        execute_process(
+            COMMAND
+            "uname" "-m"
+            OUTPUT_VARIABLE HOST_ARCH
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+
+        message(STATUS "WE ARE BUILDING for ${VCPKG_TARGET_ARCHITECTURE}, on ${HOST_ARCH}")
+        if (NOT ${VCPKG_TARGET_ARCHITECTURE} STREQUAL ${HOST_ARCH})
+            set(APPLE_CROSS_COMPILATION_OPTION "--host=${HOST_ARCH}-apple-darwin")
+        endif()
+    endif()
+
     vcpkg_make_configure(
         SOURCE_PATH "${SOURCE_PATH}"
         AUTORECONF
         OPTIONS
             ${OPTIONS}
+            ${APPLE_CROSS_COMPILATION_OPTION}
         OPTIONS_DEBUG
             "--with-pydebug"
             "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/debug/lib"
