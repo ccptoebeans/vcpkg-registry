@@ -295,6 +295,10 @@ else()
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
 
+        if (HOST_ARCH STREQUAL "x86_64")
+            set(HOST_ARCH "x64")
+        endif()
+
         message(STATUS "WE ARE BUILDING for ${VCPKG_TARGET_ARCHITECTURE}, on ${HOST_ARCH}")
         if (NOT ${VCPKG_TARGET_ARCHITECTURE} STREQUAL ${HOST_ARCH})
             list(APPEND OPTIONS "--host=${HOST_ARCH}-apple-darwin")
