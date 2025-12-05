@@ -286,26 +286,9 @@ else()
         endif()
     endif()
 
-    set(FORCE_CROSSCOMPILATION OFF)
-    if(VCPKG_TARGET_IS_OSX)
-        execute_process(
-            COMMAND
-            "uname" "-m"
-            OUTPUT_VARIABLE HOST_ARCH
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-
-        message(STATUS "WE ARE BUILDING for ${VCPKG_TARGET_ARCHITECTURE}, on ${HOST_ARCH}")
-        if (NOT ${VCPKG_TARGET_ARCHITECTURE} STREQUAL ${HOST_ARCH})
-            list(APPEND OPTIONS "--host=${HOST_ARCH}-apple-darwin")
-            list(APPEND OPTIONS "--build=${VCPKG_TARGET_ARCHITECTURE}-apple-darwin")
-            set(FORCE_CROSSCOMPILATION ON)
-        endif()
-    endif()
-
     # The version of the build Python must match the version of the cross compiled host Python.
     # https://docs.python.org/3/using/configure.html#cross-compiling-options
-    if(VCPKG_CROSSCOMPILING OR FORCE_CROSSCOMPILATION)
+    if(VCPKG_CROSSCOMPILING)
         set(_python_for_build "${CURRENT_HOST_INSTALLED_DIR}/tools/python3/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
         list(APPEND OPTIONS "--with-build-python=${_python_for_build}")
     endif()
