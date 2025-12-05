@@ -281,53 +281,42 @@ else()
         endif()
     endif()
 
-    # set(FORCE_CROSSCOMPILATION OFF)
-    # if(VCPKG_TARGET_IS_OSX)
-    #     execute_process(
-    #         COMMAND
-    #         "uname" "-m"
-    #         OUTPUT_VARIABLE HOST_ARCH
-    #         OUTPUT_STRIP_TRAILING_WHITESPACE
-    #     )
-
-    #     if (HOST_ARCH STREQUAL "x86_64")
-    #         set(HOST_ARCH "x64")
-    #     endif()
-
-    #     message(STATUS "WE ARE BUILDING for ${VCPKG_TARGET_ARCHITECTURE}, on ${HOST_ARCH}")
-    #     if (NOT ${VCPKG_TARGET_ARCHITECTURE} STREQUAL ${HOST_ARCH})
-    #         list(APPEND OPTIONS "--host=${HOST_ARCH}-apple-darwin")
-    #         list(APPEND OPTIONS "--build=${VCPKG_TARGET_ARCHITECTURE}-apple-darwin")
-    #         set(FORCE_CROSSCOMPILATION ON)
-    #     endif()
-    # endif()
-
-    set(BUILD_TRIPLET "")
     if(TARGET_TRIPLET MATCHES ".*universal-osx.*")
-        list(APPEND BUILD_TRIPLET "--enable-universalsdk")
-        list(APPEND BUILD_TRIPLET "--with-universal-archs=universal2")
+        vcpkg_configure_make(
+            SOURCE_PATH "${SOURCE_PATH}"
+            AUTOCONFIG
+            BUILD_TRIPLET "--enable-universalsdk --with-universal-archs=universal2"
+            OPTIONS
+                ${OPTIONS}
+            OPTIONS_DEBUG
+                "--with-pydebug"
+                "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/debug/lib"
+            OPTIONS_RELEASE
+                "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/lib"
+        )
+        vcpkg_install_make(INSTALL_TARGET altinstall)
+    else()
+        # The version of the build Python must match the version of the cross compiled host Python.
+        # https://docs.python.org/3/using/configure.html#cross-compiling-options
+        if(VCPKG_CROSSCOMPILING)
+            set(_python_for_build "${CURRENT_HOST_INSTALLED_DIR}/tools/python3/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+            list(APPEND OPTIONS "--with-build-python=${_python_for_build}")
+        endif()
+        vcpkg_make_configure(
+            SOURCE_PATH "${SOURCE_PATH}"
+            AUTORECONF
+            OPTIONS
+                ${OPTIONS}
+            OPTIONS_DEBUG
+                "--with-pydebug"
+                "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/debug/lib"
+            OPTIONS_RELEASE
+                "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/lib"
+        )
+        vcpkg_make_install(TARGETS altinstall)
     endif()
 
-    # The version of the build Python must match the version of the cross compiled host Python.
-    # https://docs.python.org/3/using/configure.html#cross-compiling-options
-    if(VCPKG_CROSSCOMPILING)
-        set(_python_for_build "${CURRENT_HOST_INSTALLED_DIR}/tools/python3/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
-        list(APPEND OPTIONS "--with-build-python=${_python_for_build}")
-    endif()
-
-    vcpkg_make_configure(
-        SOURCE_PATH "${SOURCE_PATH}"
-        AUTORECONF
-        OPTIONS
-            ${OPTIONS}
-        BUILD_TRIPLET ${BUILD_TRIPLET}
-        OPTIONS_DEBUG
-            "--with-pydebug"
-            "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/debug/lib"
-        OPTIONS_RELEASE
-            "vcpkg_rpath=${CURRENT_INSTALLED_DIR}/lib"
-    )
-    vcpkg_make_install(TARGETS altinstall)
+    
 
     file(COPY "${CURRENT_PACKAGES_DIR}/tools/${PORT}/bin/" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/${PORT}")
 
