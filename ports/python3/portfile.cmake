@@ -282,10 +282,6 @@ else()
     endif()
 
     if(TARGET_TRIPLET MATCHES ".*universal-osx.*")
-        if(VCPKG_CROSSCOMPILING)
-            set(_python_for_build "${CURRENT_HOST_INSTALLED_DIR}/tools/python3/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
-            list(APPEND OPTIONS "--with-build-python=${_python_for_build}")
-        endif()
         vcpkg_configure_make(
             SOURCE_PATH "${SOURCE_PATH}"
             AUTOCONFIG
