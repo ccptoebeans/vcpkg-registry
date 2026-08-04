@@ -1,8 +1,8 @@
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL git@github.com:carbonengine/pdm-proto-wrapper.git
-  REF d08e220697daa1b17298c257a803da64dcbc64a9
-  HEAD_REF master
+  URL git@github.com:ccptoebeans/pdm-proto-wrapper.git
+  REF 0723fcffe173611eeacf73056abb139eaaee79ee
+  HEAD_REF v145
 )
 
 vcpkg_cmake_configure(
