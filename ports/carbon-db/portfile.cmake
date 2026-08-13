@@ -1,8 +1,8 @@
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL git@github.com:carbonengine/db.git
-  REF a2b11c05da7501a46b0c651a3f5c80e3a5228092
-  HEAD_REF main
+  URL git@github.com:ccptoebeans/db.git
+  REF 907a6cc45b553943f37d2f5c75c61cded0716576
+  HEAD_REF v145
 )
 
 vcpkg_cmake_configure(
