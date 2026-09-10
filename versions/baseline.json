@@ -129,7 +129,7 @@
       "port-version": 0
     },
     "carbon-pdmprotowrapper": {
-      "baseline": "2.0.4",
+      "baseline": "3.0.0",
       "port-version": 0
     },
     "carbon-prometheus": {
