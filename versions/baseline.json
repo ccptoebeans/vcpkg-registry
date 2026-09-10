@@ -125,7 +125,7 @@
       "port-version": 0
     },
     "carbon-pdm": {
-      "baseline": "2.1.7",
+      "baseline": "2.2.0",
       "port-version": 0
     },
     "carbon-pdmprotowrapper": {
