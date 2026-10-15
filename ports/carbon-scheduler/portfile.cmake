@@ -1,8 +1,8 @@
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL https://github.com/carbonengine/scheduler.git
-  REF 4b710c69157d1bbd9bff824d4e8246cefb5e3a57
-  HEAD_REF main
+  URL https://github.com/ccptoebeans/scheduler.git
+  REF 34958b9bb357e232df8ccb930fff0cd53880367d
+  HEAD_REF linux
 )
 
 vcpkg_cmake_configure(
