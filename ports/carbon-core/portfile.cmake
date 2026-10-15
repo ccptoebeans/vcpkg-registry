@@ -1,8 +1,8 @@
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL https://github.com/carbonengine/core.git
-  REF ffba58cf756a94053a314f0dc1ec7cdb54a26b1a
-  HEAD_REF main
+  URL https://github.com/ccp-serpent/core.git
+  REF d9a78d5d7b7df7555b109611f846c1ee1eed4a90
+  HEAD_REF feature/linux-support
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
