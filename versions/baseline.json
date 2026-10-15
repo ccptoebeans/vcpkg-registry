@@ -146,7 +146,7 @@
     },
     "carbon-scheduler": {
       "baseline": "1.6.0-rc.1",
-      "port-version": 1
+      "port-version": 2
     },
     "carbon-spacemouse": {
       "baseline": "3.0.1",
