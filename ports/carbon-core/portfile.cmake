@@ -1,7 +1,7 @@
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
   URL https://github.com/ccp-serpent/core.git
-  REF d9a78d5d7b7df7555b109611f846c1ee1eed4a90
+  REF 7eab5b8976b726117fcbbfc33014acb1fd290511
   HEAD_REF feature/linux-support
 )
 
