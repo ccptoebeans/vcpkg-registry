@@ -17,7 +17,7 @@ if(WIN32)
     SET(EXTRA_COMPILE_OPTIONS "/EHsr /GT")
 
     add_library(switch_x64_masm OBJECT src/greenlet/platform/switch_x64_masm.asm)
-elseif(APPLE)
+else()
     SET(EXTRA_COMPILE_OPTIONS "--std=gnu++11")
 endif()
 

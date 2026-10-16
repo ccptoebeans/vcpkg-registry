@@ -19,7 +19,9 @@ elseif(WIN32)
         IMPORTED_LOCATION "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/_greenlet.pyd"
     )
 else()
-    message(FATAL_ERROR "Greenlet not supported on platform.")
+    set_target_properties(Greenlet PROPERTIES
+        IMPORTED_LOCATION "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib/_greenlet.so"
+    )
 endif()
 
 define_property(TARGET PROPERTY PYTHON_MODULE_DIR BRIEF_DOCS "path to the python module")
