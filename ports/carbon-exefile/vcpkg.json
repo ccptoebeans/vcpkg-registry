@@ -1,6 +1,7 @@
 {
   "name": "carbon-exefile",
   "version": "4.3.0",
+  "port-version": 1,
   "description": "Elements used to build the final exefile executable",
   "dependencies": [
     {
@@ -14,7 +15,7 @@
     },
     {
       "name": "crashpad",
-      "version>=": "2021-04-14#1"
+      "version>=": "2026-07-02"
     },
     {
       "name": "python3",
