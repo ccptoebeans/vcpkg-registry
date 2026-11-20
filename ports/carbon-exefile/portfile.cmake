@@ -13,9 +13,9 @@ endif()
 
 vcpkg_from_git(
   OUT_SOURCE_PATH SOURCE_PATH
-  URL git@github.com:carbonengine/exefile.git
-  REF 0b624b71458c26d1d2b0efc022589093f0301a5a
-  HEAD_REF main
+  URL git@github.com:ccpcookies/exefile.git
+  REF 2682aa668ffb5d4f6e54ffbd79acd663a7cd3b99
+  HEAD_REF linux
 )
 
 vcpkg_cmake_configure(
